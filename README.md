@@ -22,6 +22,3 @@ cd fullcircle
 
 # Install dependencies (update based on tech stack)
 ```
-
-## License
-MIT License
