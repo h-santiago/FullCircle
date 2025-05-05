@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Food Items</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Available Food Items</h1>
+        {% if retailers %}
+            {% for retailer in retailers %}
+                <div class="retailer-card">
+                    <h2>{{ retailer.name }}</h2>
+                    <p>Location: {{ retailer.address }}</p>
+                    <h3>Available Items:</h3>
+                    {% if retailer.items %}
+                        <ul>
+                            {% for item in items %}
+                                {{ item }}
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>No items available</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No retailers found</p>
+        {% endif %}
+        <a href="{{ url_for('consumer_dashboard') }}" class="btn">Back to Dashboard</a>
+    </div>
+</body>
+</html>

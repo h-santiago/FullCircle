@@ -1,0 +1,20 @@
+<!-- templates/consumerDashboard.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Selection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Welcome to the Portal</h1> <!-- Title outside the container -->
+    <div class="container">
+        <div class="buttons">
+            <a href="{{ url_for('consumer_retailer_list') }}" class="btn consumer_retailer_list-btn">Food</a>
+            <a href="{{ url_for('consumer_ngo_map') }}" class="btn consumer_ngo_map-btn">Resources</a>
+        </div>
+    </div>
+</body>
+</html>

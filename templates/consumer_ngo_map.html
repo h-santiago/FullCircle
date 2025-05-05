@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Closest NGOs Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <style>
+        #map {
+            height: 600px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h2>Closest NGOs Map</h2>
+    <div id="map"></div>
+
+    <script>
+        // Initialize the map with a fallback view (Ottawa)
+        var map = L.map('map').setView([0, 0], 13); // Default location (Ottawa)
+
+        // Load OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Function to fetch user location from the database
+        async function getUserLocation() {
+            const response = await fetch('/api/user/location'); // Endpoint to fetch user location
+            const data = await response.json();
+            if (data.latitude && data.longitude) {
+                return { latitude: data.latitude, longitude: data.longitude }; // Extract latitude and longitude
+            }
+            return null;
+        }
+
+        // Function to fetch NGO data from the Flask API
+        async function getNGOs() {
+            const response = await fetch('/api/organizations');  // Fetch from the API
+            const data = await response.json();
+            return data;  // Return the data received
+        }
+
+        // Function to load NGOs onto the map
+        async function loadMap() {
+            try {
+                // First, try to fetch the user's location
+                const userLocation = await getUserLocation();
+
+                // If we have a valid user location, center the map on that location
+                if (userLocation) {
+                    map.setView([userLocation.latitude, userLocation.longitude], 13); // Set view to user location
+                    L.marker([userLocation.latitude, userLocation.longitude]).addTo(map)
+                        .bindPopup("You are here")
+                        .openPopup();  // Show user's location on map
+                }
+
+                // Fetch NGOs data and display on map
+                const ngos = await getNGOs();  // Fetch NGOs data
+                if (ngos.length === 0) {
+                    console.log("No organizations found.");
+                    return;
+                }
+
+                ngos.forEach(ngo => {
+                    // Create a marker for each NGO
+                    let markerColor = ngo.type === "food_bank" ? "blue" : "red";  // Example: color based on type
+
+                    L.marker([ngo.latitude, ngo.longitude])
+                        .addTo(map)
+                        .bindPopup(`
+                            <b>${ngo.name}</b><br>
+                            Type: ${ngo.type.replace('_', ' ')}<br>
+                            Location: (${ngo.latitude}, ${ngo.longitude})
+                        `);
+                });
+
+            } catch (error) {
+                console.error("Error loading NGOs or user location: ", error);
+            }
+        }
+
+        // Load the map with NGOs
+        loadMap();
+    </script>
+</body>
+</html>

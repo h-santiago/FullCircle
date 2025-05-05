@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Remove Food Item</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Remove Food Item</h1>
+        {% if items %}
+            <form action="{{ url_for('remove_item') }}" method="post">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Select</th>
+                            <th>Item Name</th>
+                            <th>Quantity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in items %}
+                            <tr>
+                                <td><input type="radio" name="item_id" value="{{ item.id }}" required></td>
+                                <td>{{ item.name }}</td>
+                                <td>{{ item.quantity }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <button type="submit">Remove Selected Item</button>
+            </form>
+        {% else %}
+            <p>No items available to remove.</p>
+        {% endif %}
+        <a href="{{ url_for('retail_dashboard') }}" class="btn">Back to Dashboard</a>
+    </div>
+</body>
+</html>

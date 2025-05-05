@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - NGO</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="header">About Us</div>
+    <div class="container">
+        <h1>About {{ organization.user.name }}</h1>
+        <p>Welcome to {{ organization.user.name }}, a dedicated {{ organization.org_type }} working to make a difference in our community.</p>
+        
+        <h2>Our Mission</h2>
+        <p>We strive to provide resources and support to those in need, ensuring everyone has access to food, advocacy, and essential services.</p>
+
+        <h2>Contact Us</h2>
+        <p>If you have any questions or would like to get involved, please reach out to us at:</p>
+        <p><strong>Email:</strong> {{ organization.user.email }}</p>
+        <p><strong>Address:</strong></p>
+        <p>{{ organization.user.street }}</p>
+        <p>{{ organization.user.city }}, {{ organization.user.province }}</p>
+        <p>{{ organization.user.postal_code }}</p>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FullCircle - Consumer Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>{{ organization.user.name }}'s Dashboard</h1> <!-- Title outside the container -->
+    <div class="container">
+        <div class="buttons"> <!-- Buttons for things to do, names subject to change and many features may not be implementable -->
+            <a href="#" class="btn">About us</a>
+            <a href="#" class="btn">Food Sources</a>
+            <a href="#" class="btn">Organize Event</a>
+            <a href="#" class="btn">Upcoming Events</a>
+            <a href="#" class="btn">Advocacy</a>
+        </div>
+    </div>
+</body>

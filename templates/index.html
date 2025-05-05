@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FullCircle - Welcome</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+    <h1>FullCircle</h1>
+    
+    <div class="container">
+        <p>Welcome! Please choose an option:</p>
+        <a href="{{ url_for('login') }}" class="btn login-btn">Login</a>
+        <a href="{{ url_for('register') }}" class="btn register-btn">Register</a>
+    </div>
+
+</body>
+</html>

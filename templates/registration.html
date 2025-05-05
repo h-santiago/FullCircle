@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Page</title>
+    <style>
+        #org_fields {
+            display: none;
+        }
+    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Register</h2>
+        <form action="{{ url_for('create_user') }}" method="post">
+
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Enter name" required>
+
+            <label for="email">Email</label>
+            <input type="text" id="email" name="email" placeholder="Enter your email" required>
+            
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            
+            <label for="role">User Type</label>
+            <select id="role" name="role" required>
+                <option value="Retailer">Retailer</option>
+                <option value="NGO">NGO</option>
+                <option value="Consumer">Consumer</option>
+            </select>
+            
+            <label for="street">Street Address</label>
+            <input type="text" id="street" name="street" placeholder="Enter your street address" required>
+            
+            <label for="city">City</label>
+            <input type="text" id="city" name="city" placeholder="Enter your city" required>
+            
+            <label for="province">Province</label>
+            <input type="text" id="province" name="province" placeholder="Enter your province" required>
+            
+            <label for="postal_code">Postal Code</label>
+            <input type="text" id="postal_code" name="postal_code" placeholder="Enter your postal code" required>
+            
+            <div id="org_fields">
+                <label for="org_type">Organization Type</label>
+                <select id="org_type" name="org_type" required>
+                    <option value="shelter">Shelter</option>
+                    <option value="food_bank">Food Bank</option>
+                </select>
+
+            </div>
+
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+    <script>
+        const roleSelect = document.getElementById('role');
+        const orgFields = document.getElementById('org_fields');
+        
+        roleSelect.addEventListener('change', function() {
+            if (this.value === 'NGO') {
+                orgFields.style.display = 'block';
+            } else {
+                orgFields.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

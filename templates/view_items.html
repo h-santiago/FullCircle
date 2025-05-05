@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>View Food Items</title>
+</head>
+<body>
+    <h1>Food Items</h1>
+    {% if items %}
+        <form action="{{ url_for('delete_item') }}" method="post">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Select</th>
+                        <th>Item Name</th>
+                        <th>Quantity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in items %}
+                        <tr>
+                            <td><input type="radio" name="item_id" value="{{ item.id }}" required></td>
+                            <td>{{ item.name }}</td>
+                            <td>{{ item.quantity }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <button type="submit">Delete Selected Item</button>
+        </form>
+    {% else %}
+        <p>No food items available.</p>
+    {% endif %}
+</body>
+</html>
